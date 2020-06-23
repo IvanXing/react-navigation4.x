@@ -9,7 +9,38 @@ import HomePage from '../pages/HomePage';
 import Page1 from '../pages/Page1';
 import Page2 from '../pages/Page2';
 import Page3 from '../pages/Page3';
+import Page4 from '../pages/Page4';
+import Page5 from '../pages/Page5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {createDrawerNavigator} from 'react-navigation-drawer';
+import SwitchNavigator from './SwitchNavigator';
+
+// 抽屉导航
+const DrawerNav = createDrawerNavigator({
+  Page4: {
+    screen: Page4,
+    navigationOptions: {
+      drawerLabel: 'Page4',
+      drawerIcon: ({tintColor, focused}) => (
+        <MaterialIcons name="drafts" size={24} color={{color: tintColor}} />
+      ),
+    },
+  },
+  Page5: {
+    screen: Page5,
+    navigationOptions: {
+      drawerLabel: 'Page5',
+      drawerIcon: ({tintColor, focused}) => (
+        <MaterialIcons
+          name="move-to-inbox"
+          size={24}
+          color={{color: tintColor}}
+        />
+      ),
+    },
+  },
+});
 
 // 顶部导航
 const MaterialTopTabNavigator = createMaterialTopTabNavigator(
@@ -105,6 +136,10 @@ export const AppStackNavigator = createStackNavigator(
 
     // 顶部导航进入
     HomePage: {screen: HomePage},
+    DrawerNav: {
+      screen: DrawerNav,
+    },
+    SwitchNav: SwitchNavigator,
     MaterialTopTabNavigator: {
       screen: MaterialTopTabNavigator,
       navigationOptions: {

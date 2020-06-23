@@ -28,6 +28,18 @@ export default class HomePage extends React.Component {
           }}
         />
         <Button
+          title="去切换导航"
+          onPress={() => {
+            navigation.navigate('SwitchNav');
+          }}
+        />
+        <Button
+          title="去抽屉导航"
+          onPress={() => {
+            navigation.navigate('DrawerNav');
+          }}
+        />
+        <Button
           title="去Page1"
           onPress={() => {
             navigation.navigate('Page1', {name: '动态的'});
