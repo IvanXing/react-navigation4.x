@@ -16,6 +16,18 @@ export default class HomePage extends React.Component {
       <View style={{flex: 1, backgroundColor: 'blue', paddingTop: 30}}>
         <Text style={styles.text}>来到HomePage</Text>
         <Button
+          title="去顶部导航器"
+          onPress={() => {
+            navigation.navigate('MaterialTopTabNavigator');
+          }}
+        />
+        <Button
+          title="去底部导航器"
+          onPress={() => {
+            navigation.navigate('BottomTabNavigator');
+          }}
+        />
+        <Button
           title="去Page1"
           onPress={() => {
             navigation.navigate('Page1', {name: '动态的'});

@@ -11,6 +11,47 @@ import Page2 from '../pages/Page2';
 import Page3 from '../pages/Page3';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
+// 顶部导航
+const MaterialTopTabNavigator = createMaterialTopTabNavigator(
+  {
+    Page1: {
+      screen: Page1,
+      navigationOptions: {
+        tabBarLabel: 'Page1', // 接受string或者组件
+        tabBarIcon: ({tintColor, focused}) => (
+          <Ionicons name="ios-home" size={26} style={{color: tintColor}} />
+        ),
+      },
+    },
+    Page2: {
+      screen: Page2,
+      navigationOptions: {
+        tabBarLabel: ({tintColor, focused}) => (
+          <Text style={{color: focused ? 'orange' : 'grey'}}>Page2</Text>
+        ),
+      },
+    },
+    Page3: {
+      screen: Page3,
+      navigationOptions: {
+        tabBarLabel: 'Page3',
+        tabBarIcon: ({tintColor, focused}) => (
+          <Ionicons name="ios-home" size={26} style={{color: tintColor}} />
+        ),
+      },
+    },
+  },
+  {
+    tabBarOptions: {
+      tabStyle: {minWidth: 50},
+      upperCaseLabel: false, // 是否标签大写，默认为true
+      style: {backgroundColor: '#e84e40'},
+      indicatorStyle: {height: 1, backgroundColor: 'white'}, //指示器下划线
+      labelStyle: {fontSize: 13, marginTop: 6, marginBottom: 6}, // 标签文字样式
+    },
+  },
+);
+
 // 底部导航
 const BottomTabNavigator = createBottomTabNavigator(
   {
@@ -54,28 +95,28 @@ export const AppStackNavigator = createStackNavigator(
     // HomePage: {screen: HomePage},
 
     //底部导航进入
-    HomePage: {
-      screen: BottomTabNavigator,
-      navigationOptions: {
-        title: '底部导航',
-        headerRight: null,
-      },
-    },
-    // // 顶部导航进入
-    // HomePage: {screen: HomePage},
-    // MaterialTopTabNavigator: {
-    //   screen: MaterialTopTabNavigator,
-    //   navigationOptions: {
-    //     title: '顶部导航',
-    //   },
-    // },
-    // BottomTabNavigator: {
+    // HomePage: {
     //   screen: BottomTabNavigator,
     //   navigationOptions: {
     //     title: '底部导航',
-    //     header: null,
+    //     headerRight: null,
     //   },
     // },
+
+    // 顶部导航进入
+    HomePage: {screen: HomePage},
+    MaterialTopTabNavigator: {
+      screen: MaterialTopTabNavigator,
+      navigationOptions: {
+        title: '顶部导航',
+      },
+    },
+    BottomTabNavigator: {
+      screen: BottomTabNavigator,
+      navigationOptions: {
+        title: '底部导航',
+      },
+    },
     Page1: {
       screen: Page1,
       navigationOptions: ({navigation}) => ({
@@ -113,48 +154,3 @@ export const AppStackNavigator = createStackNavigator(
 
 // 页面title三种设置方式
 // 1.详情页设置 2.导航中设置 3.跳页传参动态设置
-
-// 顶部导航
-const MaterialTopTabNavigator = createMaterialTopTabNavigator(
-  {
-    Page1: {
-      screen: Page1,
-      navigationOptions: {
-        tabBarLabel: 'Page1', // 接受string或者组件
-        tabBarIcon: ({tintColor, focused}) => (
-          <Ionicons name="ios-home" size={26} style={{color: tintColor}} />
-        ),
-      },
-    },
-    Page2: {
-      screen: Page2,
-      navigationOptions: {
-        tabBarLabel: ({tintColor, focused}) => (
-          <Text style={{color: focused ? 'orange' : 'grey'}}>Page2</Text>
-        ),
-        tabBarIcon: ({tintColor, focused}) => (
-          <Ionicons
-            name="ios-people"
-            size={26}
-            style={{color: focused ? 'orange' : 'grey'}} // 自定义图标颜色
-          />
-        ),
-      },
-    },
-    Page3: {
-      screen: Page1,
-      navigationOptions: {
-        tabBarLabel: 'Page3',
-        tabBarIcon: ({tintColor, focused}) => (
-          <Ionicons name="ios-home" size={26} style={{color: tintColor}} />
-        ),
-      },
-    },
-  },
-  // bottom设置全局 默认颜色
-  {
-    tabBarOptions: {
-      activeTintColor: 'red',
-    },
-  },
-);
