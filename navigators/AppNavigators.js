@@ -51,15 +51,16 @@ const BottomTabNavigator = createBottomTabNavigator(
 export const AppStackNavigator = createStackNavigator(
   {
     // 普通进入
-    HomePage: {screen: HomePage},
-    // 底部导航进入
-    // HomePage: {
-    //   screen: BottomTabNavigator,
-    //   navigationOptions: {
-    //     title: '底部导航',
-    //     headerRight: null,
-    //   },
-    // },
+    // HomePage: {screen: HomePage},
+
+    //底部导航进入
+    HomePage: {
+      screen: BottomTabNavigator,
+      navigationOptions: {
+        title: '底部导航',
+        headerRight: null,
+      },
+    },
     // // 顶部导航进入
     // HomePage: {screen: HomePage},
     // MaterialTopTabNavigator: {
