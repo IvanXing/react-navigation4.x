@@ -1,0 +1,159 @@
+import React from 'react';
+import {createStackNavigator} from 'react-navigation-stack'; // 堆栈导航
+import {
+  createBottomTabNavigator, // 底部导航
+  createMaterialTopTabNavigator, //顶部导航器
+} from 'react-navigation-tabs';
+import {Button, Text} from 'react-native';
+import HomePage from '../pages/HomePage';
+import Page1 from '../pages/Page1';
+import Page2 from '../pages/Page2';
+import Page3 from '../pages/Page3';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+// 底部导航
+const BottomTabNavigator = createBottomTabNavigator(
+  {
+    Page1: {
+      screen: Page1,
+      navigationOptions: {
+        tabBarLabel: 'Page1', // 接受string或者组件
+        tabBarIcon: ({tintColor, focused}) => (
+          <Ionicons name="ios-home" size={26} style={{color: tintColor}} />
+        ),
+      },
+    },
+    Page2: {
+      screen: Page2,
+      navigationOptions: {
+        tabBarLabel: (
+          {tintColor, focused}, // 自定义文字颜色
+        ) => <Text style={{color: focused ? 'orange' : 'grey'}}>Page2</Text>,
+        tabBarIcon: ({tintColor, focused}) => (
+          <Ionicons
+            name="ios-people"
+            size={26}
+            style={{color: focused ? 'orange' : 'grey'}} // 自定义图标颜色
+          />
+        ),
+      },
+    },
+  },
+  // bottom设置全局 默认颜色
+  {
+    tabBarOptions: {
+      activeTintColor: 'red',
+    },
+  },
+);
+
+// 所有页面 堆栈导航器
+export const AppStackNavigator = createStackNavigator(
+  {
+    // 普通进入
+    HomePage: {screen: HomePage},
+    // 底部导航进入
+    // HomePage: {
+    //   screen: BottomTabNavigator,
+    //   navigationOptions: {
+    //     title: '底部导航',
+    //     headerRight: null,
+    //   },
+    // },
+    // // 顶部导航进入
+    // HomePage: {screen: HomePage},
+    // MaterialTopTabNavigator: {
+    //   screen: MaterialTopTabNavigator,
+    //   navigationOptions: {
+    //     title: '顶部导航',
+    //   },
+    // },
+    // BottomTabNavigator: {
+    //   screen: BottomTabNavigator,
+    //   navigationOptions: {
+    //     title: '底部导航',
+    //     header: null,
+    //   },
+    // },
+    Page1: {
+      screen: Page1,
+      navigationOptions: ({navigation}) => ({
+        title: `${navigation.state.params && navigation.state.params.name}标题`,
+      }),
+    },
+    Page2: {screen: Page2, navigationOptions: {title: 'Page2'}},
+    Page3: {
+      screen: Page3,
+      navigationOptions: props => {
+        const {navigation} = props;
+        const {state, setParams} = navigation;
+        const {params = {}} = state; //默认值，上一页不传param为{}
+        return {
+          title: params.name ? params.name : 'This is Page3',
+          headerRight: (
+            <Button
+              title={params.mode === 'edit' ? '保存' : '编辑'}
+              onPress={() => {
+                setParams({mode: params.mode === 'edit' ? '' : 'edit'});
+              }}
+            />
+          ),
+        };
+      },
+    },
+  },
+  // 全局默认属性，对当前导航器所有页面有效
+  {
+    defaultNavigationOptions: {
+      // header: null,
+    },
+  },
+);
+
+// 页面title三种设置方式
+// 1.详情页设置 2.导航中设置 3.跳页传参动态设置
+
+// 顶部导航
+const MaterialTopTabNavigator = createMaterialTopTabNavigator(
+  {
+    Page1: {
+      screen: Page1,
+      navigationOptions: {
+        tabBarLabel: 'Page1', // 接受string或者组件
+        tabBarIcon: ({tintColor, focused}) => (
+          <Ionicons name="ios-home" size={26} style={{color: tintColor}} />
+        ),
+      },
+    },
+    Page2: {
+      screen: Page2,
+      navigationOptions: {
+        tabBarLabel: ({tintColor, focused}) => (
+          <Text style={{color: focused ? 'orange' : 'grey'}}>Page2</Text>
+        ),
+        tabBarIcon: ({tintColor, focused}) => (
+          <Ionicons
+            name="ios-people"
+            size={26}
+            style={{color: focused ? 'orange' : 'grey'}} // 自定义图标颜色
+          />
+        ),
+      },
+    },
+    Page3: {
+      screen: Page1,
+      navigationOptions: {
+        tabBarLabel: 'Page3',
+        tabBarIcon: ({tintColor, focused}) => (
+          <Ionicons name="ios-home" size={26} style={{color: tintColor}} />
+        ),
+      },
+    },
+  },
+  // bottom设置全局 默认颜色
+  {
+    tabBarOptions: {
+      activeTintColor: 'red',
+    },
+  },
+);
